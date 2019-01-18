@@ -27,7 +27,7 @@ Send out a tweet when a user makes a login attempt. It should handle successes a
 Bonus points for any additional information provided.
 
 ## Steps to upgrade.
-* Update Gemfile to 5.2.2, other gem from `~>` to `>=`
+* Update rails version in Gemfile to 5.2.2, other gem from `~>` to `>=`
 * Add gem 'bootsnap' to Gemfile
 * Update bundler. https://github.com/jekyll/jekyll/issues/7463#issuecomment-451686361
 * Run `bundle update rails`, `rails app:update`
