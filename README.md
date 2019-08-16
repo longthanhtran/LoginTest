@@ -1,6 +1,5 @@
-* Origin. Clone from https://github.com/Clearlogin/LoginTest
 
-# LoginTest
+# Login Test
 Code test project. An example of authentication with rules.
 
 Presented before you is an incomplete project. Please complete the following features.
@@ -25,20 +24,3 @@ It should say something like "User {username} logged in from {ip address} which 
 
 Send out a tweet when a user makes a login attempt. It should handle successes and failures.
 Bonus points for any additional information provided.
-
-## Steps to upgrade.
-* Update rails version in Gemfile to 5.2.2, other gem from `~>` to `>=`
-* Add gem 'bootsnap' to Gemfile
-* Update bundler. https://github.com/jekyll/jekyll/issues/7463#issuecomment-451686361
-* Run `bundle update rails`, `rails app:update`
-* Update migration file ..create_user.rb with `< ActiveRecord::Migration` to `<ActiveRecord::Migration[5.0]` then run `rails db:migrate` 
-* Create ApplicationRecord class to adapt with new class
-```
-# app/models/application_record.rb
-class ApplicationRecord < ActiveRecord::Base
-  self.abstract_class = true
-end
-```
-
-** References.
-- https://hashrocket.com/blog/posts/how-to-upgrade-to-rails-5#3-update-rails-binaries-and-configurations

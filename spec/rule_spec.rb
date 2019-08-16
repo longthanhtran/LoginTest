@@ -31,4 +31,10 @@ RSpec.describe Rule, :type => :model do
     expect(@rule).to be_valid
   end
 
+  it 'is not valid with wrong cidr' do
+    @user = User.create(username: 'long', password: '123456789')
+    @rule = @user.rules.create(cidr: '1A.15.90.0/21', permission: :allow)
+    expect(@rule).to_not be_valid
+  end
+
 end
