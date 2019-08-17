@@ -2,33 +2,37 @@ require 'rails_helper'
 
 RSpec.describe Rule, type: :model do
   let(:user) { User.create(username: 'long', password: '123456789') }
+  let(:rule) { Rule.create(cidr: '192.168.1.0/24', permission: :allow, user: user) }
 
   context 'User has association with Rule' do
     it 'with many rules' do
-      expect(user.rules).not_to eq(nil)
+      expect(user.rules).to eq([rule])
     end
 
     it 'has CIDR valid attribute' do
-      rule = user.rules.create!(cidr: '172.16.0.0/24')
-      expect(rule.cidr).not_to eq(nil)
+      expect(rule.cidr).not_to be nil
     end
 
-    it 'has either allow or deny permission' do
-      rule = user.rules.create(permission: 'allow')
-      expect(rule.permission).not_to eq(nil)
+    it 'can have permission :allow' do
+      rule = user.rules.create(cidr: '192.168.1.0/24', permission: :allow)
+      expect(rule).to be_valid
+    end
+
+    it 'can have permission :deny' do
+      rule = user.rules.create(cidr: '192.168.1.0/24', permission: :deny)
+      expect(rule).to be_valid
+    end
+
+    it 'can not have any other permission' do
+      expect {
+        Rule.new(cidr: '192.168.1.0/24', permission: 'something_else')
+      }.to raise_error(ArgumentError, "'something_else' is not a valid permission")
     end
 
     it 'should validate against CIDR range and permission attribute' do
     end
   end
 
-  subject {
-    u = User.new(username: 'long', password: '123456789')
-    r = Rule.new(cidr: '192.168.1.0/24', permission: 'allow')
-    r.user = u
-  }
-
-  let(:rule) { Rule.new(cidr: '192.168.1.0/24', permission: :allow, user: user) }
 
   it 'is valid with valid attributes' do
     expect(rule).to be_valid
