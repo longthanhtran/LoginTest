@@ -33,18 +33,17 @@ RSpec.describe Rule, type: :model do
     end
   end
 
-
   it 'is valid with valid attributes' do
     expect(rule).to be_valid
   end
 
-  it 'it not valid without a proper cird' do
+  it 'it not valid without a proper cidr' do
     invalid_rule = Rule.create(cidr: '192.168.1.0/33', permission: :allow, user: user)
     expect(invalid_rule).to_not be_valid
   end
 
   it 'user is valid with correct permission' do
-    valid_rule = user.rules.create(cidr: '192.168.1.0/23', permission: :allow)
+    user.rules.create(cidr: '192.168.1.0/23', permission: :allow)
     expect(user).to be_valid
   end
 
