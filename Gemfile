@@ -30,7 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'netaddr'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem 'activerecord-session_store'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'awesome_print'
