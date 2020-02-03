@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Auther', type: :request do
 
+  before do
+    allow_any_instance_of(ApplicationController).to(
+        receive(:authenticate).and_return(true)
+    )
+  end
+
   describe 'User Authentication' do
     before { get '/', headers: headers }
 
