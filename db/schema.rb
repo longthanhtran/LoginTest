@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_01_130624) do
+ActiveRecord::Schema.define(version: 2020_02_08_091321) do
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string "key"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_api_keys_on_key"
+  end
 
   create_table "rules", force: :cascade do |t|
     t.string "cidr"
@@ -34,7 +42,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_130624) do
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["username"], name: "index_users_on_username"
+    t.index ["username"], name: "users_username_uindex", unique: true
   end
 
 end
