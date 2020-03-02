@@ -2,12 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Auther', type: :request do
 
-  # before do
-  #   allow_any_instance_of(ApplicationController).to(
-  #       receive(:authenticate).and_return(true)
-  #   )
-  # end
-
   describe 'User Authentication' do
     before { get '/', headers: headers }
 
@@ -28,7 +22,6 @@ RSpec.describe 'Auther', type: :request do
       let(:rule) { create(:rule) }
 
       it 'verifies against valid user account' do
-        get '/', headers: headers
         expect(response).to have_http_status 200
       end
     end
