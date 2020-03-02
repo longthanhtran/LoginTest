@@ -30,7 +30,7 @@ module Auther
       user = User.find_by username: username
 
       return unauthorized!('Client Realm') unless
-          user&.authenticate(password) && in_cidr_range(user, request.ip)
+          user&.authenticate(password) && in_cidr_range(user, request.remote_ip)
     end
   end
 
