@@ -12,7 +12,7 @@ The CIDR attribute should be validated to be a valid CIDR range and the permissi
 
 ## Write the Auther service
 
-The Auther service should handle user authentication. This service should leverage the has_strong_password User functionality as well as call or implement Rules enforcement using the IP address of the request versus the CIDR value in the rule.
+The Auther service should handle user authentication. This service should leverage the has_strong_password (**has_secure_password?**) User functionality as well as call or implement Rules enforcement using the IP address of the request versus the CIDR value in the rule.
 
 ## Create a login form and set the user session
 
