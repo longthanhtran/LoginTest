@@ -1,10 +1,11 @@
-require 'netaddr'
+require 'ipaddr'
 
 class CidrValidator < ActiveModel::Validator
-  include NetAddr
 
   def validate(record)
-    unless NetAddr::IPv4Net.parse(record.cidr)
+    begin
+      IPAddr.new(record.cidr)
+    rescue IPAddr::InvalidAddressError => e
       record.errors[:cidr] << 'Need a valid CIDR string!'
     end
   end
