@@ -1,0 +1,52 @@
+body {
+  background-color: #4b72d9;
+  font-family: Miriam Libre;
+}
+
+#container {
+  background-color: #FFFFFF;
+  margin-top: 1em;
+  margin-left: 5em;
+  margin-right: 5em;
+  padding: 2rem;
+  display: grid;
+  grid-template-areas:
+    "lheader header rheader"
+    "ltitle title rtitle"
+    "lbody body rbody";
+  grid-gap: 1rem;
+}
+
+#user_header {
+  grid-area: rheader;
+  align-content: center;
+}
+
+#title {
+  grid-area: title;
+}
+
+#body {
+  grid-area: body;
+  align-self: stretch;
+}
+
+#login_form .field{
+  padding: 0.3rem;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px dotted black;
+}
+
+table thead {
+  background: #DDDDDD;
+}
+
+table thead th {
+  font-weight: normal;
+}

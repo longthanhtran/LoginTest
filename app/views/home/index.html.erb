@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Home</title>
+</head>
+
+<body>
+  <div id="title">
+    <h1>Welcome To Login Test</h1>
+  </div>
+
+  <div id="body">
+    <% if current_user %>
+      <p>
+        User <%= current_user.username %> logged in from <%= remote_ip %> which matched on rule from below rule(s)
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>CIDR range</th>
+            <th>Allow?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for rule in user_rules %>
+          <tr>
+            <td><%= rule[:cidr] %></td>
+            <td><%= rule[:permission] %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    <% end %>
+  </div>
+</body>
+</html>

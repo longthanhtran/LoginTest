@@ -1,1 +1,19 @@
-<h1>Sign into Test Login</h1>
+<div id="title">
+  <h1 id="log_in">Log In</h1>
+</div>
+
+<div id="body">
+  <div id="login_form">
+    <%= form_tag sessions_path do %>
+    <div class="field">
+      <%= label_tag :username %>
+      <%= text_field_tag :username, params[:username] %>
+    </div>
+    <div class="field">
+      <%= label_tag :password %>
+      <%= password_field_tag :password, params[:password] %>
+    </div>
+    <div class="actions"><%= submit_tag "Log In" %></div>
+    <% end %>
+  </div>
+</div>

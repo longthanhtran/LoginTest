@@ -27,13 +27,12 @@ gem 'bootsnap', require: false
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'netaddr'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'activerecord-session_store'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'awesome_print'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -42,6 +41,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'sqlite3', '~> 1.3.6'
+  gem 'awesome_print'
+  gem 'rails-controller-testing'
 end
 
 group :development do

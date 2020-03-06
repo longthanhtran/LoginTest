@@ -1,43 +1,43 @@
-require 'netaddr'
+require 'ipaddr'
 
-# Auther handles authentication
 module Auther
   extend ActiveSupport::Concern
 
-  AUTH_SCHEME = 'Basic'
-
   included do
-    before_action :validate_auth_scheme
-    before_action :authenticate
-  end
-
-  def validate_auth_scheme
-    unauthorized!('Client Realm') unless
-        authorization_request.match?(/#{AUTH_SCHEME} .*/)
-  end
-
-  def unauthorized!(realm)
-    headers['WWW-Authenticate'] = %(#{AUTH_SCHEME} realm="#{realm}")
-    render(status: 401)
-  end
-
-  def authorization_request
-    @authorization_request ||= request.authorization.to_s
+    helper_method :current_user, :remote_ip, :user_rules
   end
 
   def authenticate
-    authenticate_with_http_basic do |username, password|
-      user = User.find_by username: username
-
-      return unauthorized!('Client Realm') unless
-          user&.authenticate(password) && in_cidr_range(user, request.remote_ip)
+    user = User.find_by_username(params[:username])
+    if user && user.authenticate(params[:password]) && allow_to_login?(user)
+      session[:user_id] = user.id
+      redirect_to root_url, notice: "Logged In!"
+    else
+      flash.now.alert = "Email or password is invalid"
+      redirect_to login_url
     end
   end
 
-  private
+private
 
-  def in_cidr_range(user, remote_ip)
-    user_subnet = NetAddr::IPv4Net.parse(user.rules.first.cidr)
-    user_subnet.contains(NetAddr::IPv4.parse(remote_ip.dup))
+  def allow_to_login?(user)
+    current_ip = IPAddr.new(request.remote_ip)
+    user_rules = user.rules.map { |rule| { cidr: IPAddr.new(rule.cidr), permission: rule.permission } }
+    user_rules.any? { |rule| rule[:cidr].include?(current_ip) && rule[:permission] == 'allow' }
   end
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def remote_ip
+    request.remote_ip
+  end
+
+  def user_rules
+    current_user.rules.map do |rule|
+      { cidr: rule.cidr, permission: rule.permission }
+    end
+  end
+
 end
